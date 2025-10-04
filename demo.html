@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CashHeal - Démonstration Interactive</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="demo-container">
+        <header class="demo-header">
+            <h1>🎮 CashHeal - Mode Démonstration</h1>
+            <p>Découvrez toutes les fonctionnalités de CashHeal en mode interactif</p>
+        </header>
+
+        <div class="demo-sections">
+            <!-- Section 1: Configuration du Budget -->
+            <section class="demo-section">
+                <h2>1. Configuration du Budget</h2>
+                <div class="demo-content">
+                    <div class="budget-setup">
+                        <h3>Configurez votre budget mensuel</h3>
+                        <div class="budget-form">
+                            <div class="form-group">
+                                <label>Revenu mensuel</label>
+                                <input type="number" id="demo-monthly-income" placeholder="5000" value="5000">
+                            </div>
+                            <div class="form-group">
+                                <label>Charges fixes</label>
+                                <input type="number" id="demo-fixed-expenses" placeholder="2000" value="2000">
+                            </div>
+                            <button class="btn btn-primary" onclick="demoCalculateBudget()">Calculer mon budget</button>
+                        </div>
+                    </div>
+                    
+                    <div class="budget-visualization" id="demo-budget-visualization" style="display: none;">
+                        <div class="budget-chart">
+                            <div class="chart-container">
+                                <canvas id="demo-budget-chart"></canvas>
+                            </div>
+                            <div class="budget-cards">
+                                <div class="budget-card expenses">
+                                    <div class="card-icon">💸</div>
+                                    <div class="card-content">
+                                        <h4>Dépenses</h4>
+                                        <div class="amount" id="demo-expenses-amount">€3,500</div>
+                                        <div class="percentage">70%</div>
+                                    </div>
+                                </div>
+                                <div class="budget-card savings">
+                                    <div class="card-icon">💰</div>
+                                    <div class="card-content">
+                                        <h4>Épargne</h4>
+                                        <div class="amount" id="demo-savings-amount">€1,000</div>
+                                        <div class="percentage">20%</div>
+                                    </div>
+                                </div>
+                                <div class="budget-card investments">
+                                    <div class="card-icon">📈</div>
+                                    <div class="card-content">
+                                        <h4>Investissements</h4>
+                                        <div class="amount" id="demo-investments-amount">€500</div>
+                                        <div class="percentage">10%</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 2: Quiz de Personnalité -->
+            <section class="demo-section">
+                <h2>2. Quiz de Personnalité Financière</h2>
+                <div class="demo-content">
+                    <div class="personality-quiz">
+                        <h3>Découvrez votre profil financier</h3>
+                        <div class="quiz-container" id="demo-quiz-container">
+                            <div class="quiz-question" id="demo-quiz-question">
+                                <h4>Question 1/5</h4>
+                                <p>Comment gérez-vous vos dépenses imprévues ?</p>
+                                <div class="quiz-options">
+                                    <button class="quiz-option" data-value="conservative">Je les évite autant que possible</button>
+                                    <button class="quiz-option" data-value="balanced">Je les planifie dans mon budget</button>
+                                    <button class="quiz-option" data-value="aggressive">Je les finance avec mes investissements</button>
+                                </div>
+                            </div>
+                            <div class="quiz-progress">
+                                <div class="progress-bar" id="demo-quiz-progress"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 3: Simulateur d'Investissement -->
+            <section class="demo-section">
+                <h2>3. Simulateur d'Investissement</h2>
+                <div class="demo-content">
+                    <div class="projection-tool">
+                        <div class="investment-form">
+                            <h3>Calculez vos projections</h3>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label>Montant initial</label>
+                                    <input type="number" id="demo-initial-amount" placeholder="1000" value="1000">
+                                </div>
+                                <div class="form-group">
+                                    <label>Investissement mensuel</label>
+                                    <input type="number" id="demo-monthly-investment" placeholder="200" value="200">
+                                </div>
+                                <div class="form-group">
+                                    <label>Durée (années)</label>
+                                    <input type="number" id="demo-duration" placeholder="5" value="5">
+                                </div>
+                                <div class="form-group">
+                                    <label>Rendement annuel (%)</label>
+                                    <input type="number" id="demo-annual-return" placeholder="7" value="7">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary" onclick="demoCalculateProjection()">Calculer la projection</button>
+                        </div>
+                        
+                        <div class="projection-results" id="demo-projection-results" style="display: none;">
+                            <div class="projection-chart">
+                                <canvas id="demo-projection-chart"></canvas>
+                            </div>
+                            <div class="projection-summary">
+                                <div class="summary-item">
+                                    <span class="label">Investissement total</span>
+                                    <span class="value" id="demo-total-invested">€13,000</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="label">Valeur finale</span>
+                                    <span class="value" id="demo-final-value">€16,500</span>
+                                </div>
+                                <div class="summary-item">
+                                    <span class="label">Gains</span>
+                                    <span class="value gains" id="demo-total-gains">€3,500</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 4: Assistant IA -->
+            <section class="demo-section">
+                <h2>4. Assistant IA Conversationnel</h2>
+                <div class="demo-content">
+                    <div class="chat-demo">
+                        <div class="chat-messages" id="demo-chat-messages">
+                            <div class="message assistant">
+                                <div class="message-content">
+                                    Salut ! 👋 Je suis ton assistant financier. Pose-moi une question !
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input">
+                            <input type="text" id="demo-chat-input" placeholder="Posez votre question...">
+                            <button id="demo-send-message">📤</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section 5: Fonctionnalités Avancées -->
+            <section class="demo-section">
+                <h2>5. Fonctionnalités Avancées</h2>
+                <div class="demo-content">
+                    <div class="features-demo">
+                        <div class="feature-demo-card">
+                            <div class="feature-icon">🤖</div>
+                            <h3>IA Prédictive</h3>
+                            <p>Prédiction des dépenses avec l'intelligence artificielle</p>
+                            <button class="btn btn-secondary" onclick="demoAIPrediction()">Tester l'IA</button>
+                        </div>
+                        <div class="feature-demo-card">
+                            <div class="feature-icon">📊</div>
+                            <h3>Analytics</h3>
+                            <p>Analyse détaillée de vos habitudes financières</p>
+                            <button class="btn btn-secondary" onclick="demoAnalytics()">Voir Analytics</button>
+                        </div>
+                        <div class="feature-demo-card">
+                            <div class="feature-icon">🎯</div>
+                            <h3>Objectifs</h3>
+                            <p>Définissez et suivez vos objectifs financiers</p>
+                            <button class="btn btn-secondary" onclick="demoGoals()">Créer un objectif</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <footer class="demo-footer">
+            <div class="demo-actions">
+                <button class="btn btn-primary btn-large" onclick="window.open('index.html', '_blank')">
+                    <i class="fas fa-external-link-alt"></i>
+                    Ouvrir l'application complète
+                </button>
+                <button class="btn btn-secondary btn-large" onclick="resetDemo()">
+                    <i class="fas fa-refresh"></i>
+                    Recommencer la démo
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Fonctions de démonstration
+        function demoCalculateBudget() {
+            const monthlyIncome = parseFloat(document.getElementById('demo-monthly-income').value) || 0;
+            const fixedExpenses = parseFloat(document.getElementById('demo-fixed-expenses').value) || 0;
+            
+            if (monthlyIncome <= 0) {
+                alert('Veuillez entrer un revenu mensuel valide');
+                return;
+            }
+
+            const expenses = Math.round(monthlyIncome * 0.70);
+            const savings = Math.round(monthlyIncome * 0.20);
+            const investments = Math.round(monthlyIncome * 0.10);
+
+            document.getElementById('demo-expenses-amount').textContent = `€${expenses.toLocaleString()}`;
+            document.getElementById('demo-savings-amount').textContent = `€${savings.toLocaleString()}`;
+            document.getElementById('demo-investments-amount').textContent = `€${investments.toLocaleString()}`;
+
+            document.getElementById('demo-budget-setup').style.display = 'none';
+            document.getElementById('demo-budget-visualization').style.display = 'block';
+
+            // Créer le graphique
+            createDemoBudgetChart(expenses, savings, investments);
+            
+            showDemoNotification('Budget calculé avec succès ! 🎉', 'success');
+        }
+
+        function createDemoBudgetChart(expenses, savings, investments) {
+            const ctx = document.getElementById('demo-budget-chart');
+            if (!ctx) return;
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Dépenses', 'Épargne', 'Investissements'],
+                    datasets: [{
+                        data: [expenses, savings, investments],
+                        backgroundColor: ['#ef4444', '#10b981', '#f59e0b'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function demoCalculateProjection() {
+            const initialAmount = parseFloat(document.getElementById('demo-initial-amount').value) || 0;
+            const monthlyInvestment = parseFloat(document.getElementById('demo-monthly-investment').value) || 0;
+            const duration = parseFloat(document.getElementById('demo-duration').value) || 0;
+            const annualReturn = parseFloat(document.getElementById('demo-annual-return').value) || 0;
+
+            if (initialAmount <= 0 || duration <= 0) {
+                alert('Veuillez entrer des valeurs valides');
+                return;
+            }
+
+            const monthlyReturn = annualReturn / 100 / 12;
+            const totalMonths = duration * 12;
+            
+            let totalInvested = initialAmount;
+            let currentValue = initialAmount;
+            
+            for (let month = 1; month <= totalMonths; month++) {
+                currentValue = currentValue * (1 + monthlyReturn) + monthlyInvestment;
+                totalInvested += monthlyInvestment;
+            }
+
+            const totalGains = currentValue - totalInvested;
+
+            document.getElementById('demo-total-invested').textContent = `€${Math.round(totalInvested).toLocaleString()}`;
+            document.getElementById('demo-final-value').textContent = `€${Math.round(currentValue).toLocaleString()}`;
+            document.getElementById('demo-total-gains').textContent = `€${Math.round(totalGains).toLocaleString()}`;
+
+            document.getElementById('demo-projection-results').style.display = 'block';
+            createDemoProjectionChart(initialAmount, monthlyInvestment, duration, annualReturn);
+            
+            showDemoNotification('Projection calculée ! 📈', 'success');
+        }
+
+        function createDemoProjectionChart(initialAmount, monthlyInvestment, duration, annualReturn) {
+            const ctx = document.getElementById('demo-projection-chart');
+            if (!ctx) return;
+
+            const monthlyReturn = annualReturn / 100 / 12;
+            const totalMonths = duration * 12;
+            
+            const labels = [];
+            const investedData = [];
+            const valueData = [];
+            
+            let totalInvested = initialAmount;
+            let currentValue = initialAmount;
+            
+            for (let month = 0; month <= totalMonths; month += 6) {
+                labels.push(`Mois ${month}`);
+                investedData.push(totalInvested);
+                valueData.push(currentValue);
+                
+                if (month < totalMonths) {
+                    for (let i = 0; i < 6; i++) {
+                        currentValue = currentValue * (1 + monthlyReturn) + monthlyInvestment;
+                        totalInvested += monthlyInvestment;
+                    }
+                }
+            }
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Investi',
+                        data: investedData,
+                        borderColor: '#10b981',
+                        backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                        fill: false
+                    }, {
+                        label: 'Valeur',
+                        data: valueData,
+                        borderColor: '#f59e0b',
+                        backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                        fill: false
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return '€' + value.toLocaleString();
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function demoAIPrediction() {
+            const predictions = [
+                "🤖 L'IA prédit que vous dépenserez €150 en nourriture cette semaine",
+                "📊 Basé sur vos habitudes, vous économiserez €200 ce mois",
+                "🎯 L'IA recommande d'investir €300 dans un ETF diversifié",
+                "💡 Prédiction : Votre épargne atteindra €5,000 dans 6 mois"
+            ];
+            
+            const randomPrediction = predictions[Math.floor(Math.random() * predictions.length)];
+            showDemoNotification(randomPrediction, 'info');
+        }
+
+        function demoAnalytics() {
+            showDemoNotification('📊 Analytics : Vos dépenses ont augmenté de 15% ce mois. Focus sur la nourriture et les loisirs.', 'info');
+        }
+
+        function demoGoals() {
+            showDemoNotification('🎯 Objectif créé : Épargner €10,000 d\'ici décembre 2024. Progression : 0%', 'success');
+        }
+
+        function showDemoNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `demo-notification demo-notification-${type}`;
+            notification.textContent = message;
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: ${type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#6366f1'};
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+                z-index: 10000;
+                transform: translateX(100%);
+                transition: transform 0.3s ease;
+                max-width: 400px;
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(0)';
+            }, 100);
+            
+            setTimeout(() => {
+                notification.style.transform = 'translateX(100%)';
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 300);
+            }, 3000);
+        }
+
+        function resetDemo() {
+            location.reload();
+        }
+
+        // Configuration du chat de démonstration
+        document.getElementById('demo-send-message').addEventListener('click', function() {
+            const input = document.getElementById('demo-chat-input');
+            const message = input.value.trim();
+            if (!message) return;
+
+            // Ajouter le message utilisateur
+            const userMessage = document.createElement('div');
+            userMessage.className = 'message user';
+            userMessage.innerHTML = '<div class="message-content">' + message + '</div>';
+            document.getElementById('demo-chat-messages').appendChild(userMessage);
+
+            input.value = '';
+
+            // Simuler une réponse de l'IA
+            setTimeout(() => {
+                const responses = [
+                    "C'est une excellente question ! 💡",
+                    "Je vais analyser votre situation financière...",
+                    "Basé sur vos données, je recommande...",
+                    "Voici un conseil personnalisé pour vous !",
+                    "L'IA a trouvé une opportunité intéressante !"
+                ];
+                
+                const randomResponse = responses[Math.floor(Math.random() * responses.length)];
+                const aiMessage = document.createElement('div');
+                aiMessage.className = 'message assistant';
+                aiMessage.innerHTML = '<div class="message-content">' + randomResponse + '</div>';
+                document.getElementById('demo-chat-messages').appendChild(aiMessage);
+            }, 1000);
+        });
+
+        document.getElementById('demo-chat-input').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('demo-send-message').click();
+            }
+        });
+    </script>
+
+    <style>
+        .demo-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f0fdf4;
+            min-height: 100vh;
+        }
+
+        .demo-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+
+        .demo-sections {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .demo-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .demo-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1a202c;
+            margin-bottom: 1.5rem;
+            border-bottom: 3px solid #10b981;
+            padding-bottom: 0.5rem;
+        }
+
+        .features-demo {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-demo-card {
+            text-align: center;
+            padding: 1.5rem;
+            background: #f0fdf4;
+            border-radius: 12px;
+            border: 2px solid #d1fae5;
+            transition: all 0.3s ease;
+        }
+
+        .feature-demo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .feature-demo-card .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .chat-demo {
+            background: #f0fdf4;
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 2px solid #d1fae5;
+        }
+
+        .chat-messages {
+            height: 200px;
+            overflow-y: auto;
+            margin-bottom: 1rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .message {
+            margin-bottom: 1rem;
+        }
+
+        .message.user {
+            text-align: right;
+        }
+
+        .message-content {
+            display: inline-block;
+            padding: 0.75rem 1rem;
+            border-radius: 12px;
+            max-width: 80%;
+        }
+
+        .message.assistant .message-content {
+            background: #e5e7eb;
+            color: #1f2937;
+        }
+
+        .message.user .message-content {
+            background: #10b981;
+            color: white;
+        }
+
+        .chat-input {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid #d1fae5;
+            border-radius: 8px;
+            outline: none;
+        }
+
+        .chat-input button {
+            padding: 0.75rem 1rem;
+            background: #10b981;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .demo-footer {
+            margin-top: 3rem;
+            text-align: center;
+        }
+
+        .demo-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .demo-container {
+                padding: 1rem;
+            }
+            
+            .demo-header h1 {
+                font-size: 2rem;
+            }
+            
+            .demo-section {
+                padding: 1.5rem;
+            }
+            
+            .demo-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</body>
+</html>

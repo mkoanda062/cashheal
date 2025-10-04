@@ -1,0 +1,47 @@
+{
+  "name": "cashheal",
+  "version": "1.0.0",
+  "description": "CashHeal - Gestion Financière Intelligente avec IA et animations Kawai",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "npx serve .",
+    "build": "echo 'No build step required for static site'",
+    "deploy": "gh-pages -d .",
+    "test": "echo 'No tests specified yet'"
+  },
+  "keywords": [
+    "finance",
+    "gestion-financiere",
+    "budget",
+    "epargne",
+    "investissement",
+    "ia",
+    "intelligence-artificielle",
+    "pwa",
+    "responsive",
+    "kawai",
+    "psychologie-comportementale"
+  ],
+  "author": "CashHeal Team",
+  "license": "MIT",
+  "homepage": "https://votre-username.github.io/cashheal",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/votre-username/cashheal.git"
+  },
+  "bugs": {
+    "url": "https://github.com/votre-username/cashheal/issues"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.0.0",
+    "serve": "^14.2.0"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.0"
+  },
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  }
+}
